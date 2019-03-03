@@ -1,9 +1,9 @@
 from torch import nn
 from utils import conv
 
-class Discriminator(nn.Module):
+class CycleDiscriminator(nn.Module):
     def __init__(self, conv_dim=64):
-        super(Discriminator, self).__init__()
+        super(CycleDiscriminator, self).__init__()
 
         # 128x128x3 -> 64x64x64
         self.conv1 = conv(3, conv_dim, 4, stride=2, padding=1, batch_norm=False)

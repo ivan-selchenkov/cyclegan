@@ -44,11 +44,19 @@ def scale(x, feature_range=(-1, 1)):
 
 
 def conv(in_channels, out_channels, kernel_size, stride=2, padding=1, batch_norm=True):
-    layers = []
-    conv_layer = nn.Conv2d(in_channels=in_channels, out_channels=out_channels,
-                           kernel_size=kernel_size, stride=stride, padding=padding, bias=not batch_norm)
+    return layers(nn.Conv2d, in_channels, out_channels, kernel_size, stride, padding, batch_norm)
 
-    layers.append(conv_layer)
+
+def deconv(in_channels, out_channels, kernel_size, stride=2, padding=1, batch_norm=True):
+    return layers(nn.ConvTranspose2d, in_channels, out_channels, kernel_size, stride, padding, batch_norm)
+
+
+def layers(method, in_channels, out_channels, kernel_size, stride=2, padding=1, batch_norm=True):
+    layers = []
+
+    layer = method(in_channels, out_channels, kernel_size, stride, padding, bias=not batch_norm)
+
+    layers.append(layer)
 
     if batch_norm:
         layers.append(nn.BatchNorm2d(out_channels))
