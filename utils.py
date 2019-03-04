@@ -3,6 +3,7 @@ from torchvision import transforms, datasets
 from torchvision.utils import make_grid
 from torch.utils.data import DataLoader
 from torch import nn
+import torch
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -62,3 +63,15 @@ def layers(method, in_channels, out_channels, kernel_size, stride=2, padding=1, 
         layers.append(nn.BatchNorm2d(out_channels))
 
     return nn.Sequential(*layers)
+
+
+def real_mse_loss(D_out):
+    return torch.mean((D_out - 1) ** 2)
+
+
+def fake_mse_loss(D_out):
+    return torch.mean(D_out ** 2)
+
+def cycle_consistency_loss(real_im, reconstructed_im, lambda_weight):
+    resonstr_loss = torch.mean(torch.abs(real_im - reconstructed_im))
+    return lambda_weight * resonstr_loss

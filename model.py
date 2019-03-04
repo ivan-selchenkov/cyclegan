@@ -7,14 +7,13 @@ from generator import CycleGenerator
 def create_model(g_conv_dim=64, d_conv_dim=64, n_res_blocks=6):
     """Builds the generators and discriminators."""
 
-    # Instantiate generators
     G_XtoY = CycleGenerator(g_conv_dim, n_res_blocks)
     G_YtoX = CycleGenerator(g_conv_dim, n_res_blocks)
-    # Instantiate discriminators
+
     D_X = CycleDiscriminator(d_conv_dim)
     D_Y = CycleDiscriminator(d_conv_dim)
 
-    # move models to GPU, if available
+
     if torch.cuda.is_available():
         device = torch.device("cuda:0")
         G_XtoY.to(device)
