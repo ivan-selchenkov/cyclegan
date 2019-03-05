@@ -24,6 +24,6 @@ class CycleDiscriminator(nn.Module):
         x = self.relu(self.conv2(x))
         x = self.relu(self.conv3(x))
         x = self.relu(self.conv4(x))
-        x = self.conv1(x)
+        x = self.conv5(x)
 
         return x

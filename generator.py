@@ -12,9 +12,9 @@ class CycleGenerator(nn.Module):
         self.conv_dim = conv_dim
         self.n_res_blocks = n_res_blocks
 
-        self.encoder_conv1 = conv(3, conv_dim, 2, 2, 1, True)
-        self.encoder_conv2 = conv(conv_dim, conv_dim * 2, 2, 2, 1, True)
-        self.encoder_conv3 = conv(conv_dim * 2, conv_dim * 4, 2, 2, 1, True)
+        self.encoder_conv1 = conv(3, conv_dim, 4)
+        self.encoder_conv2 = conv(conv_dim, conv_dim * 2, 4)
+        self.encoder_conv3 = conv(conv_dim * 2, conv_dim * 4, 4)
 
         self.residual_block_layers = []
         for i in range(n_res_blocks):
@@ -22,9 +22,9 @@ class CycleGenerator(nn.Module):
 
         self.residual_blocks = nn.Sequential(*self.residual_block_layers)
 
-        self.decoder_conv1 = deconv(conv_dim * 4, conv_dim * 2, 2, 2, 1, True)
-        self.decoder_conv2 = deconv(conv_dim * 2, conv_dim, 2, 2, 1, True)
-        self.decoder_conv3 = deconv(conv_dim, 3, 2, 2, 1, False)
+        self.decoder_conv1 = deconv(conv_dim * 4, conv_dim * 2, 4)
+        self.decoder_conv2 = deconv(conv_dim * 2, conv_dim, 4)
+        self.decoder_conv3 = deconv(conv_dim, 3, 4, batch_norm = False)
 
         self.relu = nn.ReLU()
         self.tanh = nn.Tanh()
