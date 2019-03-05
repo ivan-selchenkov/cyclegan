@@ -15,7 +15,7 @@ lr = 0.0002
 beta1 = 0.5
 beta2 = 0.999
 
-g_params = list(G_XtoY.parameters()) + list(G_XtoY.parameters())
+g_params = list(G_XtoY.parameters()) + list(G_YtoX.parameters())
 
 g_optimizer = Adam(g_params, lr, [beta1, beta2])
 d_x_optimizer = Adam(D_X.parameters(), lr, [beta1, beta2])

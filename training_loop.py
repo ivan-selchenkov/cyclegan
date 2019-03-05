@@ -57,7 +57,7 @@ def training_step(g_x_to_y, g_y_to_x, d_x, d_y, g_optimizer, d_x_optimizer, d_y_
     images_y = scale(images_y)
 
     if torch.cuda.is_available():
-        images_x = images_y.to("cuda")
+        images_x = images_x.to("cuda")
         images_y = images_y.to("cuda")
 
     d_x_loss = discriminator_step(d_x, d_x_optimizer, g_y_to_x, images_x, images_y)
